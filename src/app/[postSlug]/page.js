@@ -6,6 +6,26 @@ import { getSlugs, loadBlogPost } from '@/helpers/file-helpers';
 
 import styles from './postSlug.module.css';
 
+export async function generateMetadata({ params }) {
+  const { postSlug } = await params;
+
+  const slugs = await getSlugs();
+
+  if (!slugs.includes(postSlug)) {
+    return {
+      title: 'No such page exists'
+    }
+  }
+
+  const { frontmatter } = await loadBlogPost(postSlug);
+  const { title, abstract } = frontmatter;
+
+  return {
+    title,
+    description: abstract,
+  }
+}
+
 async function BlogPost({ params }) {
   const { postSlug } = await params;
 
@@ -15,7 +35,7 @@ async function BlogPost({ params }) {
     return (
       <article className={styles.wrapper}>
         <div className={styles.page}>
-          <p>No such page is found.</p>
+          <p>No such page is exists.</p>
         </div>
       </article>
     )
