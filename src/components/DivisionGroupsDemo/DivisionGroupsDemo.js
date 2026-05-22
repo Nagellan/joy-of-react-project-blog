@@ -85,9 +85,13 @@ function DivisionGroupsDemo({
               Remainder Area
             </p>
 
-            {range(remainder).map((index) => {
+            {range(numOfGroups * numOfItemsPerGroup, numOfItems).reverse().map((index) => {
               return (
-                <div key={index} className={styles.item} />
+                <motion.div
+                  layoutId={`circle-${id}-${index}`}
+                  key={index}
+                  className={styles.item}
+                />
               );
             })}
           </div>
