@@ -2,6 +2,11 @@ import fs from 'fs/promises';
 import path from 'path';
 import matter from 'gray-matter';
 
+export async function getSlugs() {
+  const fileNames = await readDirectory('/content');
+  return fileNames.map(fileName => fileName.replace('.mdx', ''))
+}
+
 export async function getBlogPostList() {
   const fileNames = await readDirectory('/content');
 
