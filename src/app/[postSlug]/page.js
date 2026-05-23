@@ -1,5 +1,6 @@
 import React from 'react';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import { notFound } from 'next/navigation'
 
 import BlogHero from '@/components/BlogHero';
 import CodeSnippet from '@/components/CodeSnippet';
@@ -35,13 +36,7 @@ async function BlogPost({ params }) {
   const slugs = await getSlugs();
 
   if (!slugs.includes(postSlug)) {
-    return (
-      <article className={styles.wrapper}>
-        <div className={styles.page}>
-          <p>No such page is exists.</p>
-        </div>
-      </article>
-    )
+    notFound();
   }
 
   const { frontmatter, content } = await loadBlogPost(postSlug);
